@@ -29,7 +29,15 @@ func main() {
             continue
         }
 
+
+
         log.Printf("<--[%s] %s, chat_id is %s", update.Message.From.UserName, update.Message.Text, update.Message.Chat.ID)
+if strings.ToLower(update.Message.Text) == "/roll"{
+  rand.Seed(time.Now().UTC().UnixNano())
+  msg := tgbotapi.NewMessage(update.Message.Chat.ID,strconv.Itoa(rand.Intn(9))+strconv.Itoa(rand.Intn(9))+strconv.Itoa(rand.Intn(9))+strconv.Itoa(rand.Intn(9))+strconv.Itoa(rand.Intn(9))+strconv.Itoa(rand.Intn(9)))
+  bot.Send(msg)
+  log.Printf("-->[%s] %s", update.Message.From.UserName, msg.Text)
+} else
         if strings.ToLower(update.Message.Text) == "спасибо, мистер дудец" ||
         strings.ToLower(update.Message.Text) == "спасибо мистер дудец"{
           rand.Seed(time.Now().UTC().UnixNano())
@@ -57,7 +65,7 @@ func main() {
               checkErr(err, "Sending failed")
               log.Printf("-->[%s] %s", update.Message.From.UserName, gifs[i]+" " + message.Document.FileID)
           }
-        } else if (strings.Contains(strings.ToLower(update.Message.Text), "бот") ||
+        } else if (strings.ToLower(update.Message.Text)== "бот" ||
         strings.Contains(strings.ToLower(update.Message.Text), "дудец"))&& (strings.Contains(strings.ToLower(update.Message.Text), "нахуй") ||
         strings.Contains(strings.ToLower(update.Message.Text), "пизда") ||
         strings.Contains(strings.ToLower(update.Message.Text), "уебывай") ||
